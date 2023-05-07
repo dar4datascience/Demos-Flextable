@@ -48,6 +48,7 @@ tennis_players
 
 ## Mario kart
 
+Souce: https://www.ardata.fr/en/flextable-gallery/2021-01-12-mario-kart/#data
 
 ### Data 
 
@@ -78,7 +79,8 @@ ft <- flextable(mario_kart, col_keys = c("Characters", var_stat)) %>%
                  colwidths = c(1, 4, 1, 1,
                                4, 1, 1)) %>%
     theme_box() %>% 
-  merge_v(part = "header") %>% bold(part = "header") %>% 
+  merge_v(part = "header") %>%
+    bold(part = "header") %>% 
   valign(valign = "center", part = "header") %>% 
   compose(j = "Characters", 
           value = as_paragraph(
@@ -93,7 +95,11 @@ ft <- flextable(mario_kart, col_keys = c("Characters", var_stat)) %>%
   theme_zebra(odd_header = "#c7254e", even_header = "#c7254e",
               odd_body = "#fff5f5", even_body = "#f8f9fa") %>% 
   color(part = "header", color = "white") %>% 
-  align(align = "right", part = "all") %>%
+  align(align = "right", part = "body") %>%
+  rotate(rotation = "tbrl", part = "header") %>% 
+  valign(valign = "bottom", part = "header") %>% 
+  width(width = .55) %>% 
+  width(j = 1, width = 1.3 ) %>% 
   autofit()
 ft
 ```
@@ -134,5 +140,67 @@ if (require("magick")) {
   ft <- autofit(myft)
   ft
 }
+```
+
+## Table with density lines
+
+```{r}
+library(data.table)
+z <- as.data.table(ggplot2::diamonds)
+z <- z[, list(
+  price = mean(price, na.rm = TRUE),
+  list_col = list(.SD$x)
+), by = "cut"]
+z
+```
+
+
+```{r}
+ft <- flextable(data = z) |>
+  compose(j = "list_col", value = as_paragraph(
+    plot_chunk(value = list_col, type = "dens", col = "pink", 
+               width = 1.5, height = .4, free_scale = TRUE)
+  )) |>
+  colformat_double(big.mark = " ", suffix = " $") |> 
+  set_header_labels(list_col = "density") |> 
+  autofit()
+ft
+```
+```{r}
+library(data.table)
+library(flextable)
+
+z <- as.data.table(iris)
+z <- z[ , list(
+  Sepal.Length = mean(Sepal.Length, na.rm  = TRUE),
+  z = list(.SD$Sepal.Length)
+  ), by = "Species"]
+
+ft <- flextable(z,
+  col_keys = c("Species", "Sepal.Length", "box", "density"))
+ft <- mk_par(ft, j = "box", value = as_paragraph(
+  plot_chunk(value = z, type = "box",
+             border = "red", col = "transparent")))
+ft <- mk_par(ft, j = "density", value = as_paragraph(
+ plot_chunk(value = z, type = "dens", col = "red")))
+ft <- set_table_properties(ft, layout = "autofit", width = .6)
+ft <- set_header_labels(ft, box = "boxplot", density= "density")
+theme_vanilla(ft)
+```
+## Minibars
+
+```{r}
+ft <- flextable( head(iris, n = 10 ))
+
+ft <- compose(ft, j = 1,
+  value = as_paragraph(
+    minibar(value = Sepal.Length, max = max(Sepal.Length))
+  ),
+  part = "body")
+
+ft <- autofit(ft)
+ft
+
+
 ```
 
