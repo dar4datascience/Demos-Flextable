@@ -118,6 +118,9 @@ for(column in var_stat){
 ft <- ft %>% autofit() 
 
 ft
+
+flextable::save_as_pptx(ft, path = 'test.pptx')
+flextable::save_as_html(ft, path = "html tables/mariokart_flextable_demo.html")
 ```
 
 ## Simple DEmo
