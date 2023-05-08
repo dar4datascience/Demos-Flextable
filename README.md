@@ -1,20 +1,7 @@
 # Demos-Flextable
 
-## mario
-## ├── BebeHarmonie.png
-## ├── BebeMario.png
-## ├── BebePeach.png
-## ├── Bowser.png
-## ├── Harmonie.png
-## ├── KoopaTroopa.png
-## ├── Luigi.png
-## ├── Mario.png
-## ├── MarioMetal.png
-## ├── Peach.png
-## ├── PeachChat.png
-## ├── Star_coin.png
-## ├── Tanuki.png
-## ├── Toad.png
-## ├── Toadette.png
-## ├── Waluigi.png
-## └── Wario.png
+## Mario kart Table
+
+See rendered html flextable here: [htmlpreview.github](https://htmlpreview.github.io/?https://github.com/dar4datascience/Demos-Flextable/blob/main/html%20tables/mariokart_flextable_demo.html)
+
+[![mario kart flextable with rupees](https://github.com/dar4datascience/Demos-Flextable/blob/main/img/mariokart.png?raw=true)](https://htmlpreview.github.io/?https://github.com/dar4datascience/Demos-Flextable/blob/main/html%20tables/mariokart_flextable_demo.html)
